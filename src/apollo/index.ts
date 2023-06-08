@@ -1,23 +1,17 @@
-import { InMemoryCache, ApolloClient } from "@apollo/client";
-import { typeDefs } from "./TypeDefs";
-import link from "./Middlewares";
+import { InMemoryCache, NormalizedCacheObject } from "@apollo/client";
+import ApolloClient from "apollo-boost";
 import initCache from "./Cache";
 
-let client: ApolloClient<any>;
+const cache: InMemoryCache = await initCache();
 
-export const getApolloClient = async (): Promise<ApolloClient<any>> => {
-    if (client) return client;
-
-    const cache: InMemoryCache = await initCache();
-
-    const apolloClient: ApolloClient<any> = new ApolloClient({
-        link,
-        cache,
-        connectToDevTools: process.env.NODE_ENV === "development",
-        typeDefs,
+export const getApolloClient = async () => {
+    const client: NormalizedCacheObject | unknown = new ApolloClient({
+        uri: "https://api.github.com/graphql",
+        headers: {
+            Authorization: "Bearer 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",
+        },
+        cache: cache as any, // bug with ApolloCache<any> | undefined
     });
 
-    client = apolloClient;
-
-    return apolloClient;
+    return client;
 };

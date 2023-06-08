@@ -3,7 +3,7 @@ import styled from "styled-components";
 interface ImagesProps {
     height?: string;
     width?: string;
-    styles?: any;
+    styles?: unknown;
 }
 
 export const Images = styled.img<ImagesProps>`

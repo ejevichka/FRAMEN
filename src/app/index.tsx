@@ -1,21 +1,8 @@
 import React from "react";
-
-import { ErrorPage } from "pages/ErrorPage";
-import Welcome from "pages/Welcome";
-import { createBrowserRouter, RouteObject, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import theme from "styles/theme";
-
-const routesConfig: RouteObject[] = [
-    {
-        path: "/",
-        element: <Welcome />,
-    },
-    {
-        path: "*",
-        element: <ErrorPage type="404" />,
-    },
-];
+import { routesConfig } from "./routes";
 
 const router = createBrowserRouter(routesConfig, { basename: "/" });
 

@@ -6,13 +6,13 @@ import { addParameters } from '@storybook/react';
 
 addParameters({
     options:{
-        theme:themes.dark,
+        theme:themes.light,
         showRoots:false,
     }
 }); 
 
 addons.setConfig({
-    theme:themes.dark,
+    theme:themes.light,
 })
 
 let req;

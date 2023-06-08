@@ -1,3 +1,3 @@
-import LoggedIn from "./HeaderLoggedIn";
+import { renderMenuItem } from "./MenuItemSideBar";
 
-export { LoggedIn };
+export { renderMenuItem };

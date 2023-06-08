@@ -1,35 +1,32 @@
 import "./index.css";
 import "./storybook.css";
-
 import React from "react";
-
-import { getApolloClient } from "apollo";
 import App from "app";
-import ReactDOM from "react-dom/client";
-import { I18nextProvider } from "react-i18next";
-
-import { ApolloProvider } from "@apollo/client";
-
-import createI18n from "./i18n/i18n";
+import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
+import { createRoot } from "react-dom/client";
 import * as serviceWorker from "./serviceWorker";
 
-async function bootStrap() {
-    // get the apollo client store
-    const client = await getApolloClient();
-    // get the inital language from the store
-    const i18n = await createI18n(client);
+async function bootstrap() {
+    const client = new ApolloClient({
+        uri: "https://api.github.com/graphql",
+        headers: {
+            Authorization: "Bearer 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",
+        },
+        cache: new InMemoryCache(),
+    });
 
-    const rootElement = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
+    // get the initial language from the store
+    // const i18n = await createI18n(client);
 
     const AppBundle = (
         <ApolloProvider client={client}>
-            <I18nextProvider i18n={i18n}>
-                <App />
-            </I18nextProvider>
+            <App />
         </ApolloProvider>
     );
 
-    rootElement.render(AppBundle);
+    const container = document.getElementById("root");
+    const root = createRoot(container!);
+    root.render(AppBundle);
 
     // If you want your app to work offline and load faster, you can change
     // unregister() to register() below. Note this comes with some pitfalls.
@@ -37,4 +34,4 @@ async function bootStrap() {
     serviceWorker.unregister();
 }
 
-bootStrap();
+bootstrap();

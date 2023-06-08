@@ -1,12 +1,9 @@
-import { TypePolicy } from "apollo/TypePolicies";
 import { persistCache } from "apollo3-cache-persist";
 
 import { InMemoryCache } from "@apollo/client";
 
 async function initCache(): Promise<InMemoryCache> {
-    const cache: InMemoryCache = new InMemoryCache({
-        typePolicies: TypePolicy,
-    });
+    const cache: InMemoryCache = new InMemoryCache({});
 
     await persistCache({
         cache,
