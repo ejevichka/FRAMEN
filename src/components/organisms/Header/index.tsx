@@ -1,45 +1,25 @@
 import React from "react";
-
-import { Alert } from "antd";
-import { Button, Loading } from "components/atoms";
-import { LoggedIn } from "components/molecules";
+import Avatar from "@mui/material/Avatar";
 import { useTranslation } from "react-i18next";
 
-import { LanguageSelector } from "./components/LanguageSelector";
+import { BurgerMenu } from "../../atoms/ToggleMenu";
 import { HeaderProps } from "./Header.types";
 import { Container } from "./styles";
 
 const Header = (props: HeaderProps) => {
-    const { t } = useTranslation();
-    const { Login, loading, error, data, Logout } = props;
-
-    const RenderView = () => {
-        if (loading) {
-            return <Loading LoadingText="Loading..." />;
-        }
-
-        if (error) {
-            return <Alert message={error.message} type="error" showIcon />;
-        }
-
-        if (data && data.localUser.isLoggedIn) {
-            return <LoggedIn Logout={Logout} />;
-        }
-
-        return (
-            <Button styles={{ alignSelf: "flex-end" }} Text={t("Login")} onClick={Login} />
-        );
-    };
+    const { toggleMenu } = props;
 
     return (
         <Container>
-            <LanguageSelector
-                languages={[
-                    { key: "en", label: "EN" },
-                    { key: "ko", label: "KR" },
-                ]}
+            <BurgerMenu toggleMenu={toggleMenu} />
+            <img
+                src="https://global-uploads.webflow.com/6364e4e0baec60a3a1eff938/6387823376153765a32a51a5_framen_logo_color.png"
+                loading="lazy"
+                width="133"
+                sizes="(max-width: 479px) 100vw, 133px"
+                alt=""
             />
-            {RenderView()}
+            <Avatar src="/broken-image.jpg" />
         </Container>
     );
 };
